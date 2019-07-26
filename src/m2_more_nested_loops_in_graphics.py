@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Mitch Lugsch.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -49,9 +49,34 @@ def draw_upside_down_wall(rectangle, n, window):
     and n is nonnegative.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     Some tests are already written for you (above).
     # ------------------------------------------------------------------
+    original_upper_left = rectangle.get_upper_left_corner()
+    original_lower_right = rectangle.get_lower_right_corner()
+    upper_left_x = original_upper_left.x
+    lower_right_x = original_lower_right.x
+    width = rectangle.get_width()
+    height = rectangle.get_height()
+
+    upper_left = original_upper_left
+    lower_right = original_lower_right
+
+    for k in range(n):
+        for j in range(k + 1):
+            new = rg.Rectangle(upper_left, lower_right)
+            new.attach_to(window)
+            window.render()
+
+            upper_left.x = upper_left.x + width
+            lower_right.x = lower_right.x + width
+
+        upper_left.x = upper_left_x - ((width / 2) * (k + 1))
+        lower_right.x = lower_right_x - ((width / 2) * (k + 1))
+        upper_left.y = upper_left.y - height
+        lower_right.y = lower_right.y - height
+
+
 
 
 # ----------------------------------------------------------------------
